@@ -1,0 +1,5 @@
+jax >=0.4.4
+matplotlib
+numpy
+scipy
+tqdm

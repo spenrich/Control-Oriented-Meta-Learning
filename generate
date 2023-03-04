@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Automate data generation.
+
+# Author: Spencer M. Richards
+#         Autonomous Systems Lab (ASL), Stanford
+#         (GitHub: spenrich)
+
+python $1/generate_data.py

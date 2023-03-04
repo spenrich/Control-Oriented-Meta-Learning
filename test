@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Automate testing.
+
+# Author: Spencer M. Richards
+#         Autonomous Systems Lab (ASL), Stanford
+#         (GitHub: spenrich)
+
+for seed in {0..9}
+do
+    for M in 2 5 10 20 30 40 50
+    do
+        echo "seed = $seed, M = $M"
+        python $1/test.py $seed $M --use_x64 --use_cpu
+    done
+done
