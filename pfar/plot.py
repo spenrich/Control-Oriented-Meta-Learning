@@ -1,5 +1,5 @@
 """
-TODO description.
+Plot test results for the PFAR system.
 
 Author: Spencer M. Richards
         Autonomous Systems Lab (ASL), Stanford
@@ -19,15 +19,17 @@ import numpy as np
 from scipy.stats import beta
 
 plt.rcParams.update({
-    'font.family':       'serif',
-    'font.serif':        ['Times', 'Times New Roman'],
-    'mathtext.fontset':  'cm',
-    'font.size':         16,
-    'legend.fontsize':   'medium',
-    'axes.titlesize':    'medium',
-    'lines.linewidth':   2,
-    'lines.markersize':  8,
-    'errorbar.capsize':  6,
+    'font.family':          'serif',
+    'font.serif':           ['Times', 'Times New Roman'],
+    'mathtext.fontset':     'cm',
+    'font.size':            16,
+    'legend.fontsize':      'medium',
+    'axes.titlesize':       'medium',
+    'lines.linewidth':      2,
+    'lines.markersize':     8,
+    'errorbar.capsize':     6,
+    'savefig.dpi':          300,
+    'savefig.format':       'jpeg',
 })
 
 if __name__ == '__main__':
@@ -55,7 +57,7 @@ if __name__ == '__main__':
     p_test = beta.pdf(x, a, b) / (w_max - w_min)
 
     _, bins = np.histogram(np.hstack([w_train, w_test]), bins=15)
-    fig, ax = plt.subplots(1, 1, dpi=100, figsize=(8, 4))
+    fig, ax = plt.subplots(1, 1, figsize=(8, 4))
     ax.plot(w_train_pdf, p_train,
             label=r'$p_\mathrm{train}(w)$', color='tab:blue')
     ax.hist(w_train, density=True, alpha=0.5, bins=bins, color='tab:blue')
@@ -66,16 +68,15 @@ if __name__ == '__main__':
     ax.set_ylabel(r'sampling probability')
     ax.legend()
     fig.tight_layout()
-    fig.savefig(os.path.join('figures', 'wind_distributions.pdf'),
+    fig.savefig(os.path.join('figures', 'wind_distributions'),
                 bbox_inches='tight')
-    plt.show()
 
     # FIGURE 3 ###############################################################
     path = os.path.join('pfar', 'results_looptraj.pkl')
     with open(path, 'rb') as file:
         results = pickle.load(file)
 
-    fig = plt.figure(dpi=100, figsize=(15, 7.5))
+    fig = plt.figure(figsize=(15, 7.5))
     grid = plt.GridSpec(2, 2, width_ratios=[1, 1.2], height_ratios=[1, 1],
                         hspace=0.05, wspace=0.3)
     axes = (plt.subplot(grid[:, 0]),
@@ -134,9 +135,7 @@ if __name__ == '__main__':
                          linestyle='--', lw=4.)]
     fig.legend(handles=handles, loc='lower center', ncol=5)
     fig.subplots_adjust(bottom=0.17)
-    fig.savefig(os.path.join('figures', 'pfar_looptraj.pdf'),
-                bbox_inches='tight')
-    plt.show()
+    fig.savefig(os.path.join('figures', 'pfar_looptraj'), bbox_inches='tight')
 
     # FIGURE 4 ###############################################################
     seeds = np.arange(10)
@@ -187,8 +186,7 @@ if __name__ == '__main__':
                 results['ours_meta']['rms_ctrl']
             )
 
-    fig, axes = plt.subplots(2, num_gains,
-                             dpi=100, figsize=(18, 6), sharex=True)
+    fig, axes = plt.subplots(2, num_gains, figsize=(18, 6), sharex=True)
     axes[0, 0].set_ylabel(metrics[0])
     axes[1, 0].set_ylabel(metrics[1])
     for j, (λ, k, p) in enumerate(gains):
@@ -247,6 +245,7 @@ if __name__ == '__main__':
                for color, label in zip(colors, labels)]
     fig.legend(handles=handles, loc='lower center', ncol=len(handles))
     fig.subplots_adjust(bottom=0.19, hspace=0.1)
-    fig.savefig(os.path.join('figures', 'pfar_lineplot.pdf'),
-                bbox_inches='tight')
+    fig.savefig(os.path.join('figures', 'pfar_lineplot'), bbox_inches='tight')
+
+    # Show all figures
     plt.show()

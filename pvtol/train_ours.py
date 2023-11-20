@@ -50,7 +50,7 @@ from utils.params import epoch                                  # noqa: E402
 from utils.pvtol import dynamics as prior, gains_to_params      # noqa: E402
 from utils.pytree import tree_normsq                            # noqa: E402
 from utils.simulation import simulate_pvtol_parametric          # noqa: E402
-from utils.traj import random_ragged_spline                     # noqa: E402
+from utils.trajgen import random_ragged_spline                  # noqa: E402
 
 # Initialize PRNG key
 key = jax.random.PRNGKey(args.seed)

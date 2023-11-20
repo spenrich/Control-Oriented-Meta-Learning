@@ -19,15 +19,17 @@ from tqdm.auto import tqdm
 
 plt.close('all')
 plt.rcParams.update({
-    'font.family':      'serif',
-    'font.serif':       ['Times New Roman', 'CMU Serif'],
-    'mathtext.fontset': 'cm',
-    'font.size':        18,
-    'legend.fontsize':  'medium',
-    'axes.titlesize':   'medium',
-    'lines.linewidth':  2,
-    'lines.markersize': 10,
-    'errorbar.capsize': 6,
+    'font.family':          'serif',
+    'font.serif':           ['Times New Roman', 'CMU Serif'],
+    'mathtext.fontset':     'cm',
+    'font.size':            18,
+    'legend.fontsize':      'medium',
+    'axes.titlesize':       'medium',
+    'lines.linewidth':      2,
+    'lines.markersize':     10,
+    'errorbar.capsize':     6,
+    'savefig.dpi':          300,
+    'savefig.format':       'jpeg',
 })
 
 system_name = 'pvtol'
@@ -113,8 +115,7 @@ for k, method in enumerate(methods):
 ax[0].set_ylabel(r'$\dfrac{1}{N_\mathrm{test}}'
                  r'\sum_{i=1}^{N_\mathrm{test}}\,\mathrm{RMS}(x_i-x_i^*)$')
 fig.tight_layout()
-fig.savefig(os.path.join('figures', 'pvtol_boxplot.pdf'), bbox_inches='tight')
-plt.show()
+fig.savefig(os.path.join('figures', 'pvtol_boxplot'), bbox_inches='tight')
 
 ###############################################################################
 # Plot line-plots of state trajectory RMSE across seeds as a function of `M`
@@ -129,8 +130,7 @@ ax.set_xlabel('$M$')
 fig.legend(handles=patches, loc='lower center', ncol=3,
            bbox_to_anchor=(0.5, 0.))
 fig.subplots_adjust(bottom=0.25)
-fig.savefig(os.path.join('figures', 'pvtol_lineplot.pdf'), bbox_inches='tight')
-plt.show()
+fig.savefig(os.path.join('figures', 'pvtol_lineplot'), bbox_inches='tight')
 
 ###############################################################################
 # Load and plot results for the double-loop trajectory
@@ -187,5 +187,7 @@ handles = lines + [Line2D([0], [0], color='tab:red', label='target',
                    linestyle='--', lw=4.)]
 fig.legend(handles=handles, ncol=3, loc='lower center')
 fig.subplots_adjust(bottom=0.15)
-fig.savefig(os.path.join('figures', 'pvtol_looptraj.pdf'), bbox_inches='tight')
+fig.savefig(os.path.join('figures', 'pvtol_looptraj'), bbox_inches='tight')
+
+# Show all figures
 plt.show()
